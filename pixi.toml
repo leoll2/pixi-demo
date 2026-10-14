@@ -15,16 +15,27 @@ pillow = ">=11,<12"
 [feature.preprocess.tasks]
 preprocess = { cmd = "python src/toolbox/preprocess.py", description = "Preprocess an input image" }
 
-[feature.detect.dependencies]
+[feature.detect-yolo.dependencies]
 python = "3.14.*"
 pytorch = ">=2.12,<3"
 torchvision = "*"
 
-[feature.detect.pypi-dependencies]
+[feature.detect-yolo.pypi-dependencies]
 ultralytics = ">=8.3,<9"
 
-[feature.detect.tasks]
-detect = { cmd = "python src/toolbox/detect.py", description = "Run YOLO object detection" }
+[feature.detect-yolo.tasks]
+detect-yolo = { cmd = "python src/toolbox/detect_yolo.py", description = "Run YOLO (ultralytics) object detection" }
+
+# For the purpose of this PoC, incompatible with detect-yolo: older Python, PyTorch and NumPy 1.x.
+[feature.detect-rtdetr.dependencies]
+python = "3.11.*"
+pytorch = ">=2.4,<2.6"
+numpy = "<2"
+pillow = "*"
+transformers = ">=4.45,<4.50"
+
+[feature.detect-rtdetr.tasks]
+detect-rtdetr = { cmd = "python src/toolbox/detect_rtdetr.py", description = "Run RT-DETR (Hugging Face transformers) object detection" }
 
 [feature.annotate.dependencies]
 opencv = ">=4.10,<5"
@@ -35,5 +46,6 @@ annotate = { cmd = "python src/toolbox/annotate.py", description = "Draw detecti
 [environments]
 default = { solve-group = "main" }
 preprocess = ["preprocess"]
-detect = ["detect"]
+detect-yolo = ["detect-yolo"]
+detect-rtdetr = ["detect-rtdetr"]
 annotate = ["annotate"]

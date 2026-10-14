@@ -12,9 +12,11 @@ results = model.predict(args.input, verbose=False)
 
 detections = []
 for box in results[0].boxes:
+    class_id = int(box.cls.item())
     detections.append({
         "bbox": box.xyxy[0].tolist(),
-        "class_id": int(box.cls.item()),
+        "class_id": class_id,
+        "label": model.names[class_id],
         "confidence": float(box.conf.item()),
     })
 

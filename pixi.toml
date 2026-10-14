@@ -1,0 +1,30 @@
+[workspace]
+authors = ["Leonardo Lai <leonardo.lai@intel.com>"]
+name = "object_detection_demo"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[dependencies]
+python = "*"
+
+[feature.preprocess.dependencies]
+python = "3.12.*"
+pillow = ">=11,<12"
+
+[feature.detect.dependencies]
+python = "3.14.*"
+pytorch = ">=2.12,<3"
+torchvision = "*"
+
+[feature.detect.pypi-dependencies]
+ultralytics = ">=8.3,<9"
+
+[feature.annotate.dependencies]
+opencv = ">=4.10,<5"
+
+[environments]
+default = { solve-group = "main" }
+preprocess = ["preprocess"]
+detect = ["detect"]
+annotate = ["annotate"]

@@ -12,6 +12,9 @@ python = "*"
 python = "3.12.*"
 pillow = ">=11,<12"
 
+[feature.preprocess.tasks]
+preprocess = { cmd = "python src/toolbox/preprocess.py", description = "Preprocess an input image" }
+
 [feature.detect.dependencies]
 python = "3.14.*"
 pytorch = ">=2.12,<3"
@@ -20,8 +23,14 @@ torchvision = "*"
 [feature.detect.pypi-dependencies]
 ultralytics = ">=8.3,<9"
 
+[feature.detect.tasks]
+detect = { cmd = "python src/toolbox/detect.py", description = "Run YOLO object detection" }
+
 [feature.annotate.dependencies]
 opencv = ">=4.10,<5"
+
+[feature.annotate.tasks]
+annotate = { cmd = "python src/toolbox/annotate.py", description = "Draw detections on an image" }
 
 [environments]
 default = { solve-group = "main" }
